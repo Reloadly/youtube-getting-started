@@ -1,0 +1,22 @@
+version: '3.3'
+networks:
+  supernetwork:
+    driver: bridge
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: DockerFiles/Dockerfile
+    container_name: reloadly_yt_php
+    restart: always
+
+    volumes:
+      - ".:/var/www/html"
+      - "./etc/php/php.ini:/usr/local/etc/php/conf.d/custom.ini"
+    environment:
+      - "PHP_IDE_CONFIG=serverName=PHPSTORM_DOCKER"
+    networks:
+      - supernetwork
+    ports:
+      - "80:80"
